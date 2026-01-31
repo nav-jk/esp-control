@@ -1,12 +1,25 @@
 repos:
-  # Official pre-commit hooks (whitespace, EOF, etc.)
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v17.0.6
+    hooks:
+      - id: clang-format
+        files: \.(c|h)$
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
+      - id: check-merge-conflict
 
-  # Local ESP32 build hook (pre-push only)
+  - repo: local
+    hooks:
+      - id: forbid-malloc
+        name: "Forbid malloc/free in firmware"
+        entry: bash -lc "grep -R \"\\b(malloc|free)\\b\" main components && exit 1 || exit 0"
+        language: system
+        files: \.(c|h)$
+
   - repo: local
     hooks:
       - id: esp32-build
