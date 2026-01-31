@@ -1,0 +1,16 @@
+repos:
+  # Official pre-commit hooks (whitespace, EOF, etc.)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  # Local ESP32 build hook (pre-push only)
+  - repo: local
+    hooks:
+      - id: esp32-build
+        name: ESP32 Build (ESP-IDF)
+        entry: bash -lc "idf.py build"
+        language: system
+        stages: [pre-push]
