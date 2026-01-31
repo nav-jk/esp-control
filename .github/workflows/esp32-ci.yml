@@ -11,9 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: espressif/setup-esp-idf@v1
+    - name: Setup ESP-IDF
+      uses: espressif/esp-idf-ci-action@v1
       with:
-        version: v5.1
+        esp_idf_version: v5.1
         target: esp32
 
     - name: Install dependencies
